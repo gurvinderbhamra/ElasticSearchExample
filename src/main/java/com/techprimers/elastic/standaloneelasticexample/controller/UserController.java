@@ -2,6 +2,7 @@ package com.techprimers.elastic.standaloneelasticexample.controller;
 
 import com.techprimers.elastic.standaloneelasticexample.constants.Constants;
 import com.techprimers.elastic.standaloneelasticexample.domain.User;
+import org.elasticsearch.action.delete.DeleteResponse;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.client.transport.TransportClient;
@@ -32,6 +33,7 @@ public class UserController {
         try {
             response = client.prepareIndex(Constants.EMPLOYEE, Constants.ID, user.getId())
                     .setSource(jsonBuilder()
+                            .startObject()
                             .field("name", user.getName())
                             .field("userSettings", user.getUserSettings())
                             .endObject())
@@ -40,5 +42,11 @@ public class UserController {
             e.printStackTrace();
         }
         return response != null ? response.getResult().toString() : "ERROR";
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public String deleteUser(@PathVariable final String id) {
+        DeleteResponse deleteResponse = client.prepareDelete(Constants.EMPLOYEE, Constants.ID, id).get();
+        return deleteResponse.getResult().toString();
     }
 }
