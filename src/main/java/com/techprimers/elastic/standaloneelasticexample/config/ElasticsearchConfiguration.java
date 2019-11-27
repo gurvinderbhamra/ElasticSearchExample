@@ -25,4 +25,8 @@ public class ElasticsearchConfiguration {
         return new PreBuiltTransportClient(Settings.EMPTY)
                 .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(host), port));
     }
+
+    public String getHost() { return host; }
+
+    public int getPort() { return port; }
 }
