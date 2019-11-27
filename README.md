@@ -13,3 +13,11 @@ To run application locally, the command is:
 - or you can directly execute the main function in **SpringDataElasticSearchApplication**.java
 
 **API details:**
+1. API to create or save user:
+    `curl --header "Content-Type: application/json" --request POST --data '{"id":"3","name":"def","userSettings":{"gender":"male","hobbies":"xyz"}}' http://localhost:8080/user/create`
+    
+2. Get User by id:
+     `curl -X GET http://localhost:8080/user/get/{id}`
+     
+3. Delete user by id:
+     `curl -X DELETE http://localhost:8080/user/delete/{id}`
